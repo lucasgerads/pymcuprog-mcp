@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pymcuprog-mcp"
+version = "0.1.0"
+description = "MCP server wrapping pymcuprog for AVR/Microchip programming"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+dependencies = [
+    "mcp[cli]>=1.0.0",
+    "pymcuprog>=3.14.0",
+]
+
+[project.scripts]
+pymcuprog-mcp = "pymcuprog_mcp.server:main"
+
+[project.optional-dependencies]
+dev = ["pytest"]
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pymcuprog_mcp"]

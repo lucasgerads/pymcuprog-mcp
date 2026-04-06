@@ -1,0 +1,36 @@
+# Virtual environments
+venv*/
+.venv/
+
+# uv
+uv.lock
+
+# Build / dist
+*.egg-info/
+dist/
+build/
+.pytest_cache/
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Claude Code
+.claude/
+CLAUDE.md
+
+# Lucas
+LUCAS.md
+
+# Captured data files (generated output)
+screenshots/
+waveforms/
+*.png
+*.csv
+
+# Re-include documentation assets
+!docu/**/*.png
+
+#Setup files
+.mcp.json
