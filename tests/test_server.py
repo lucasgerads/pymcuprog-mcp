@@ -80,7 +80,7 @@ def test_erase_specific_memory(mock_session, backend):
 def test_write_hex_default_no_erase_with_verify(mock_session, backend):
     server_module.write_hex("/fw.hex")
     backend.erase.assert_not_called()
-    backend.write_hex_to_target.assert_called_once_with("/fw.hex", erase=False, verify=False)
+    backend.write_hex_to_target.assert_called_once_with("/fw.hex")
     backend.verify_hex.assert_called_once_with("/fw.hex")
     backend.release_from_reset.assert_called_once()
 
@@ -88,7 +88,7 @@ def test_write_hex_default_no_erase_with_verify(mock_session, backend):
 def test_write_hex_erase_first(mock_session, backend):
     server_module.write_hex("/fw.hex", erase_first=True)
     backend.erase.assert_called_once()
-    backend.write_hex_to_target.assert_called_once_with("/fw.hex", erase=False, verify=False)
+    backend.write_hex_to_target.assert_called_once_with("/fw.hex")
 
 
 def test_write_hex_no_verify(mock_session, backend):
@@ -104,7 +104,7 @@ def test_flash_erases_writes_verifies_releases(mock_session, backend):
     result = server_module.flash("/fw.hex")
     assert result == "OK"
     backend.erase.assert_called_once()
-    backend.write_hex_to_target.assert_called_once_with("/fw.hex", erase=False, verify=False)
+    backend.write_hex_to_target.assert_called_once_with("/fw.hex")
     backend.verify_hex.assert_called_once_with("/fw.hex")
     backend.release_from_reset.assert_called_once()
 
@@ -247,6 +247,6 @@ def test_build_and_flash_programs_device(mock_session, backend, tmp_path):
 
     assert result == "OK"
     backend.erase.assert_called_once()
-    backend.write_hex_to_target.assert_called_once_with(str(hexfile), erase=False, verify=False)
+    backend.write_hex_to_target.assert_called_once_with(str(hexfile))
     backend.verify_hex.assert_called_once_with(str(hexfile))
     backend.release_from_reset.assert_called_once()

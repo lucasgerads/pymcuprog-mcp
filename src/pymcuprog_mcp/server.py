@@ -203,7 +203,7 @@ def write_hex(
     def _do(b):
         if erase_first:
             b.erase()
-        b.write_hex_to_target(hexfile, erase=False, verify=False)
+        b.write_hex_to_target(hexfile)
         if verify_after:
             b.verify_hex(hexfile)
         b.release_from_reset()
@@ -409,7 +409,7 @@ def build_and_flash(
 
     def _do(b):
         b.erase()
-        b.write_hex_to_target(hexfile, erase=False, verify=False)
+        b.write_hex_to_target(hexfile)
         b.verify_hex(hexfile)
         b.release_from_reset()
 
@@ -443,7 +443,7 @@ def flash(
 
     def _do(b):
         b.erase()
-        b.write_hex_to_target(hexfile, erase=False, verify=False)
+        b.write_hex_to_target(hexfile)
         b.verify_hex(hexfile)
         b.release_from_reset()
 
