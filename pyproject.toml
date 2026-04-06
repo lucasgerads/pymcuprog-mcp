@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pymcuprog-mcp"
-version = "0.1.1"
+version = "0.1.2"
 description = "MCP server wrapping pymcuprog for AVR/Microchip programming"
 readme = "README.md"
 requires-python = ">=3.10"

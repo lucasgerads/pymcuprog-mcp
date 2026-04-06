@@ -6,14 +6,24 @@ Supports USB HID debuggers (nEDBG, PICkit 4, Atmel-ICE, MPLAB Snap, …) and ser
 
 ## Installation
 
+No installation needed if you use `uvx` — it runs the server directly from PyPI on demand (see `.mcp.json` examples below).
+
+To install as a persistent tool:
+
+```bash
+uv tool install pymcuprog-mcp
+```
+
+Or with pip:
+
 ```bash
 pip install pymcuprog-mcp
 ```
 
-Or from source:
+From source:
 
 ```bash
-git clone https://github.com/youruser/pymcuprog-mcp
+git clone https://github.com/lucasgerads/pymcuprog-mcp
 cd pymcuprog-mcp
 pip install -e .
 ```
@@ -35,13 +45,16 @@ Setting `PYMCUPROG_SERIALPORT` switches the server into serial UPDI mode (uses a
 
 ## `.mcp.json` examples
 
+All examples use `uvx`, which downloads and runs the server directly from PyPI with no prior installation step.
+
 ### USB HID debugger (nEDBG / Curiosity Nano)
 
 ```json
 {
   "mcpServers": {
     "pymcuprog": {
-      "command": "pymcuprog-mcp",
+      "command": "uvx",
+      "args": ["pymcuprog-mcp"],
       "env": {
         "PYMCUPROG_DEVICE": "atmega4808",
         "PYMCUPROG_TOOL": "nedbg"
@@ -57,7 +70,8 @@ Setting `PYMCUPROG_SERIALPORT` switches the server into serial UPDI mode (uses a
 {
   "mcpServers": {
     "pymcuprog": {
-      "command": "pymcuprog-mcp",
+      "command": "uvx",
+      "args": ["pymcuprog-mcp"],
       "env": {
         "PYMCUPROG_DEVICE": "attiny416",
         "PYMCUPROG_TOOL": "pickit4"
@@ -73,7 +87,8 @@ Setting `PYMCUPROG_SERIALPORT` switches the server into serial UPDI mode (uses a
 {
   "mcpServers": {
     "pymcuprog": {
-      "command": "pymcuprog-mcp",
+      "command": "uvx",
+      "args": ["pymcuprog-mcp"],
       "env": {
         "PYMCUPROG_DEVICE": "avr128da48",
         "PYMCUPROG_SERIALPORT": "/dev/ttyUSB0",
@@ -90,7 +105,8 @@ Setting `PYMCUPROG_SERIALPORT` switches the server into serial UPDI mode (uses a
 {
   "mcpServers": {
     "pymcuprog-board-a": {
-      "command": "pymcuprog-mcp",
+      "command": "uvx",
+      "args": ["pymcuprog-mcp"],
       "env": {
         "PYMCUPROG_DEVICE": "atmega4808",
         "PYMCUPROG_TOOL": "nedbg",
@@ -98,7 +114,8 @@ Setting `PYMCUPROG_SERIALPORT` switches the server into serial UPDI mode (uses a
       }
     },
     "pymcuprog-board-b": {
-      "command": "pymcuprog-mcp",
+      "command": "uvx",
+      "args": ["pymcuprog-mcp"],
       "env": {
         "PYMCUPROG_DEVICE": "atmega4808",
         "PYMCUPROG_TOOL": "nedbg",
@@ -112,7 +129,7 @@ Setting `PYMCUPROG_SERIALPORT` switches the server into serial UPDI mode (uses a
 ### Claude Code (via CLI)
 
 ```bash
-claude mcp add pymcuprog -e PYMCUPROG_DEVICE=atmega4808 -e PYMCUPROG_TOOL=nedbg -- pymcuprog-mcp
+claude mcp add pymcuprog -e PYMCUPROG_DEVICE=atmega4808 -e PYMCUPROG_TOOL=nedbg -- uvx pymcuprog-mcp
 ```
 
 ## Available tools
