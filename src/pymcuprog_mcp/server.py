@@ -11,9 +11,8 @@ mcp = FastMCP(
     "pymcuprog",
     instructions=(
         "Tools for programming Microchip/AVR microcontrollers via pymcuprog. "
-        "Set PYMCUPROG_DEVICE and PYMCUPROG_TOOL env vars when starting the server, "
-        "or pass device/tool parameters to each tool call. "
-        "Typical workflow: ping -> build_and_flash or flash. "
+        "Always call get_config first to see what device and tool are configured. "
+        "Typical workflow: get_config -> ping -> build_and_flash or flash. "
         "Memory areas: flash, eeprom, fuses, user_row, signatures, lockbits, boot_row."
     ),
 )
@@ -22,6 +21,27 @@ mcp = FastMCP(
 # ---------------------------------------------------------------------------
 # Discovery tools — no hardware required
 # ---------------------------------------------------------------------------
+
+
+@mcp.tool()
+def get_config() -> str:
+    """Return the current server configuration read from environment variables.
+
+    Call this first to confirm what device and tool are configured before
+    running any programming operations. No hardware connection is required.
+    """
+    cfg = load_config()
+    return json.dumps(
+        {
+            "device": cfg.device or "(not set)",
+            "tool": cfg.tool or "(not set — any connected tool will be used)",
+            "serialnumber": cfg.serialnumber or "(not set)",
+            "serialport": cfg.serialport or "(not set — USB HID mode)",
+            "baudrate": cfg.baudrate,
+            "project_dir": cfg.project_dir or "(not set)",
+        },
+        indent=2,
+    )
 
 
 @mcp.tool()
